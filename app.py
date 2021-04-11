@@ -30,7 +30,7 @@ app = dash.Dash(
     ]
 )
 server = app.server
-
+app.title = "Cheesesteak Adventure"
 
 app.layout = html.Div([
 
