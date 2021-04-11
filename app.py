@@ -1,13 +1,16 @@
-import plotly.express as px
-import pandas as pd
-import numpy as np
-import dash 
-import dash_html_components as html
+import os
+
+import dash
 import dash_core_components as dcc
+import dash_html_components as html
+import numpy as np
+import pandas as pd
+import plotly.express as px
 from dash.dependencies import Input, Output
 
 
-px.set_mapbox_access_token(TOKEN)
+MAPBOX_TOKEN = os.getenv('MAPBOX_TOKEN')
+px.set_mapbox_access_token(MAPBOX_TOKEN)
 
 
 def stars_to_rating(score):
