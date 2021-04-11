@@ -12,39 +12,7 @@ from dash.dependencies import Input, Output
 MAPBOX_TOKEN = os.getenv('MAPBOX_TOKEN')
 px.set_mapbox_access_token(MAPBOX_TOKEN)
 
-
-def stars_to_rating(score):
-    try:
-        if set(score) == set("*"):
-            return len(score) * 10
-        return score
-    except:
-        return score
-
-
-def strings_to_nan(score):
-    try:
-        return int(score)
-    except ValueError:
-        return np.nan
-
-
-def preprocess(df):
-    df = df[~df["latitude"].isna()]
-    df["SCORE"] = df["SCORE"].apply(lambda x: stars_to_rating(x))
-    df["SCORE"] = df["SCORE"].apply(lambda x: strings_to_nan(x))
-    df["SCORE"] = df["SCORE"].fillna(0)
-    df["SCORE"] = df["SCORE"].apply(lambda x: int(x))
-
-    df.columns = [c.strip() for c in df.columns]
-    return df
-
-
-df = pd.read_csv("data.csv")
-df = preprocess(df)
-
-
-
+df = pd.read_csv('data.csv')
 fig = px.scatter_mapbox(
     df,
     lat="latitude",
@@ -55,7 +23,12 @@ fig = px.scatter_mapbox(
 )
 
 
-app = dash.Dash(__name__, external_stylesheets=['https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'])
+app = dash.Dash(
+    __name__, 
+    external_stylesheets=[
+        'https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'
+    ]
+)
 app.layout = html.Div([
 
     html.H3(
