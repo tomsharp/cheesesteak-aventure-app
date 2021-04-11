@@ -29,6 +29,9 @@ app = dash.Dash(
         'https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'
     ]
 )
+server = app.server
+
+
 app.layout = html.Div([
 
     html.H3(
